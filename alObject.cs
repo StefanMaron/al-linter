@@ -70,7 +70,7 @@ namespace al_linter
                             {
                                 this.objectID = Int32.Parse(part.Value);
                             }
-                            catch (System.FormatException e)
+                            catch (System.FormatException)
                             {
                                 this.objectID = 0;
                             }
@@ -132,7 +132,7 @@ namespace al_linter
                             var type = line.Substring(line.IndexOf(":"));
                             foreach (var name in names.Split(", "))
                             {
-                                this.alVariable.Add(new alVariable(String.Format("{0}{1}",name,type), LineNo, true, checkhungariannotation, hungariannotationoptions));
+                                this.alVariable.Add(new alVariable(String.Format("{0}{1}", name, type), LineNo, true, checkhungariannotation, hungariannotationoptions));
                             }
                         }
                         else

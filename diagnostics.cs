@@ -33,14 +33,16 @@ namespace al_linter
         public LinePos end { get; set; }
         public string message { get; set; }
         public string source { get; set; }
+        public string code { get; set; }
 
-        public diagnosticMessage(severityLevel severity, LinePos start, LinePos end, string message, string source)
+        public diagnosticMessage(severityLevel severity, LinePos start, LinePos end, string message, string source, string code)
         {
             this.severity = (int)severity;
             this.start = start;
             this.end = end;
             this.message = message;
             this.source = source;
+            this.code = code;
         }
     }
 
@@ -67,8 +69,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + keyword.Length),
-                        "A Commit() is an indication of poorly structured code(AL Lint Clean Code)",
-                        "AlLint"
+                        "A Commit() is an indication of poorly structured code",
+                        "AlLint",
+                        "0001"
                     ));
             }
         }
@@ -84,8 +87,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + 4),
-                        String.Format("A {0} should not be used in a table or page object (AL Lint Clean Code)", line.Substring(index, 4)),
-                        "AlLint"
+                        String.Format("A {0} should not be used in a table or page object", line.Substring(index, 4)),
+                        "AlLint",
+                        "0002"
                     ));
                 }
             }
@@ -99,8 +103,9 @@ namespace al_linter
                     severityLevel.Warning,
                     new LinePos(0, 0),
                     new LinePos(0, 5),
-                    "DrillDownPageID should be in a table (AL Lint Clean Code)",
-                    "AlLint"
+                    "DrillDownPageID should be in a table",
+                    "AlLint",
+                    "0003"
                 ));
             }
         }
@@ -113,8 +118,9 @@ namespace al_linter
                     severityLevel.Warning,
                     new LinePos(0, 0),
                     new LinePos(0, 5),
-                    "LookupPageID should be set in a table(AL Lint Clean Code)",
-                    "AlLint"
+                    "LookupPageID should be set in a table",
+                    "AlLint",
+                    "0004"
                 ));
             }
         }
@@ -130,8 +136,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alFunction.name.Length),
-                        String.Format("{0} has Hungarian Notation (AL Lint Clean Code)", line.Substring(index, alFunction.name.Length)),
-                        "AlLint"
+                        String.Format("{0} has Hungarian Notation", line.Substring(index, alFunction.name.Length)),
+                        "AlLint",
+                        "0005"
                     ));
                 }
             }
@@ -148,8 +155,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alFunction.name.Length),
-                        String.Format("{0} contains a reserved word (AL Lint Clean Code)", line.Substring(index, alFunction.name.Length)),
-                        "AlLint"
+                        String.Format("{0} contains a reserved word", line.Substring(index, alFunction.name.Length)),
+                        "AlLint",
+                        "0006"
                     ));
                 }
             }
@@ -168,8 +176,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alVariable.name.Length),
-                        String.Format("{0} has Hungarian Notation (AL Lint Clean Code)", line.Substring(index, alVariable.name.Length)),
-                        "AlLint"
+                        String.Format("{0} has Hungarian Notation", line.Substring(index, alVariable.name.Length)),
+                        "AlLint",
+                        "0007"
                     ));
                 }
             }
@@ -186,8 +195,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alVariable.name.Length),
-                        "Objects should be declared by name, not by number(AL Lint Clean Code)",
-                        "AlLint"
+                        "Objects should be declared by name, not by number",
+                        "AlLint",
+                        "0008"
                     ));
                 }
             }
@@ -204,8 +214,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alVariable.name.Length),
-                        "Temporary variables should be named TEMP, BUFFER, ARGS or ARGUMENTS as prefix or suffix (AL Lint Clean Code)",
-                        "AlLint"
+                        "Temporary variables should be named TEMP, BUFFER, ARGS or ARGUMENTS as prefix or suffix",
+                        "AlLint",
+                        "0009"
                     ));
                 }
             }
@@ -222,8 +233,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alVariable.name.Length),
-                        String.Format("{0} contains a reserved word (AL Lint Clean Code)", line.Substring(index, alVariable.name.Length)),
-                        "AlLint"
+                        String.Format("{0} contains a reserved word", line.Substring(index, alVariable.name.Length)),
+                        "AlLint",
+                        "0010"
                     ));
                 }
             }
@@ -240,8 +252,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alField.name.Length),
-                        String.Format("{0} has Hungarian Notation (AL Lint Clean Code)", line.Substring(index, alField.name.Length)),
-                        "AlLint"
+                        String.Format("{0} has Hungarian Notation1", line.Substring(index, alField.name.Length)),
+                        "AlLint",
+                        "0011"
                     ));
                 }
             }
@@ -258,8 +271,9 @@ namespace al_linter
                         severityLevel.Warning,
                         new LinePos(lineNo, index),
                         new LinePos(lineNo, index + alVariable.name.Length),
-                        "Variable names should not contain special characters or whitespaces in their name(AL Lint Clean Code)",
-                        "AlLint"
+                        "Variable names should not contain special characters or whitespaces in their name",
+                        "AlLint",
+                        "0012"
                     ));
                 }
             }
@@ -277,8 +291,9 @@ namespace al_linter
                     severityLevel.Warning,
                     new LinePos(lineNo, index),
                     new LinePos(lineNo, index + alFunction.name.Length),
-                    String.Format("Functions should generally not exceed {0} lines but it has {1} lines.Time to refactor! (AL Lint Clean Code)", maxnumberoffunctionlines, alFunction.numberOfLines),
-                    "AlLint"
+                    String.Format("Functions should generally not exceed {0} lines but it has {1} lines.Time to refactor!", maxnumberoffunctionlines, alFunction.numberOfLines),
+                    "AlLint",
+                    "0013"
                 ));
             }
         }
