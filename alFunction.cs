@@ -155,18 +155,20 @@ namespace al_linter
             }
 
             this.Length = Halstead.getHalstead(this.businessLogic, false);
-            this.vocabulary = Halstead.getHalstead(this.businessLogic, true);
-            RegexOptions im = RegexOptions.IgnoreCase | RegexOptions.Multiline;
-            RegexOptions ism = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Multiline;
+            if (this.Length > 0)
+            {
+                this.vocabulary = Halstead.getHalstead(this.businessLogic, true);
+                RegexOptions im = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+                RegexOptions ism = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Multiline;
 
-            this.cycolomaticComplexity =
-                (Regex.Matches(this.contentUpperCase, @"if\s{1}", im).Count) +
-                (Regex.Matches(this.contentUpperCase, @"(?<!:):(?!:|=)(?=[\r\n])", ism).Count) +
-                (Regex.Matches(this.contentUpperCase, @"^\s *? (else|else begin | end else begin)\s *?$", im).Count);
+                this.cycolomaticComplexity =
+                    (Regex.Matches(this.contentUpperCase, @"if\s{1}", im).Count) +
+                    (Regex.Matches(this.contentUpperCase, @"(?<!:):(?!:|=)(?=[\r\n])", ism).Count) +
+                    (Regex.Matches(this.contentUpperCase, @"^\s *? (else|else begin | end else begin)\s *?$", im).Count);
 
-            this.halsteadVolume = this.Length * Math.Log(this.vocabulary);
-            this.maintainabilityIndex = Math.Round(Math.Max(0.0, (171.0 - 5.2 * Math.Log(this.halsteadVolume) - 0.23 * (this.cycolomaticComplexity) - 16.2 * Math.Log(this.numberOfLines)) * 100.0 / 171.0));
-
+                this.halsteadVolume = this.Length * Math.Log(this.vocabulary);
+                this.maintainabilityIndex = Math.Round(Math.Max(0.0, (171.0 - 5.2 * Math.Log(this.halsteadVolume) - 0.23 * (this.cycolomaticComplexity) - 16.2 * Math.Log(this.numberOfLines)) * 100.0 / 171.0));
+            }
             var hungarianOptions = new alHungarianOptions(hungariannotationoptions);
 
             foreach (var hungarianOption in hungarianOptions.alHungarianOption)
