@@ -27,6 +27,7 @@ namespace al_linter
         public int endsAtLineNo { get; set; }
         public bool isHungarianNotation = false;
         public bool isLocal;
+        public bool isInternal;
         public bool isTrigger;
         public string debug;
         public alFunction(string content, int startsAt, int endsAt, bool checkhungariannotation, string hungariannotationoptions)
@@ -41,6 +42,7 @@ namespace al_linter
             this.numberOfLines = 0;
             this.name = getCharsBefore(this.content, "(");
             this.isLocal = this.name.ToUpper().StartsWith("LOCAL");
+            this.isInternal = this.name.ToUpper().StartsWith("INTERNAL");
             this.isTrigger = this.name.ToUpper().StartsWith("TRIGGER");
 
             if (this.isTrigger)
@@ -50,6 +52,10 @@ namespace al_linter
             else if (this.isLocal)
             {
                 this.name = this.name.Substring(16);
+            }
+            else if (this.isInternal)
+            {
+                this.name = this.name.Substring(19);
             }
             else
             {

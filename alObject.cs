@@ -32,20 +32,26 @@ namespace al_linter
             var inFieldsSection = false;
             var inFunction = false;
             var beginEnd = 0;
-            var inComment = false;
+            var CommentBlock = false;
+            var SingleComment = false;
 
 
             var lines = this.content.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
             foreach (var line in lines)
             {
-                if (line.Trim().StartsWith("//") || line.Trim().StartsWith("/*"))
-                    inComment = true;
+                SingleComment = false;
+
+                if (line.Trim().StartsWith("/*"))
+                    CommentBlock = true;
 
                 if (line.Trim().EndsWith("*/"))
-                    inComment = false;
+                    CommentBlock = false;
 
-                if (inComment)
+                if (line.Trim().StartsWith("//"))
+                    SingleComment = true;
+
+                if (CommentBlock || SingleComment)
                 {
                     this.alLine.Add(new alLine(line));
                     LineNo++;
@@ -255,6 +261,10 @@ namespace al_linter
                 return (true);
             }
             if (value.Trim().ToUpper().StartsWith("LOCAL PROCEDURE"))
+            {
+                return (true);
+            }
+            if (value.Trim().ToUpper().StartsWith("INTERNAL PROCEDURE"))
             {
                 return (true);
             }
